@@ -24,7 +24,7 @@ cyl1:
 lea ebx,  [matrix]  
 
 mov ecx, 4 ; 4 - string.size()
-add word [summ], 0
+mov word [summ], 0
 string:
         push    ecx,
         mov     ecx,     6
@@ -38,7 +38,7 @@ string:
         je sum
         pop     ax
         jmp column 
-
+        
 sum:
         pop     ax
         add     word [summ], ax
@@ -81,6 +81,17 @@ mat:
         add ebx, 2
         pop ecx
         loop mat
+
+
+    mov eax, [summ]
+    mov esi, OutBuf
+    call IntToStr
+    mov dword [lenres], eax
+    mov eax, 4
+    mov ebx, 1
+    mov ecx , esi
+    mov edx, [lenres]
+    int 80h
 
 exit:
         ; exit
