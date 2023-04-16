@@ -14,7 +14,7 @@ _start:
     mov eax, 0
 
 cyl1:
-        ; push counts in matrix 1...49
+        ; push counts in matrix 1...28
         mov     [EBX],  eax
         inc     eax
         add     ebx,    2 ; i++
@@ -38,7 +38,7 @@ string:
         je sum
         pop     ax
         jmp column 
-        
+
 sum:
         pop     ax
         add     word [summ], ax
