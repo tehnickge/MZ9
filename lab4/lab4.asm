@@ -32,7 +32,7 @@ string:
         push    ebx
 
         mov     ax,     [ebx]
-        push    ax              ; сохраням значение 
+        push    ax              ; сохраняем значение 
         mov     bl,     3
         idiv    bl
         cmp     ah,     0
