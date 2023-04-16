@@ -1,56 +1,52 @@
-    section .data
+section .data
 
-    section .bss
+section .bss
         OutBuf  resb    10
-        matrix  resw    49
-        summ     resw    1
+        matrix  resw    28
+        summ    resw    1
         lenres  resd    1
 
     section .text
 global  _start
 _start:
-    lea ebx, [matrix]
+    lea EBX, [matrix]
     mov ecx, 28
     mov eax, 0
 
 cyl1:
-        ; push counts in matrix 1...28
+        ; push counts in matrix 0...27
         mov     [EBX],  eax
         inc     eax
         add     ebx,    2 ; i++
         loop    cyl1 
 
 ; возращаем в ebx, указатель на 1 элемент в матрице.
-lea ebx,  [matrix]  
+lea EBX,  [matrix]  
 
 mov ecx, 4 ; 4 - string.size()
 mov word [summ], 0
+mov eax, 0
 string:
-        push    ecx,
-        mov     ecx,     6
+        push    ecx
+        mov     ecx,     7
         push    ebx
-
-        mov     ax,     [ebx]
-        push    ax              ; сохраням значение 
-        mov     bl,     3
-        idiv    bl
-        cmp     ah,     0
-        je sum
-        pop     ax
         jmp column 
 
-sum:
-        pop     ax
-        add     word [summ], ax
 
 column:
-        mov     ax,     [ebx + 2]
+        mov     ax,   [ebx]
         push    ax
         mov     bl,     3
         idiv    bl
         cmp     ah,     0
         je sum
         pop     ax
+        jmp next
+sum:
+        pop     ax
+        add     word [summ], ax
+next:
+        add     ebx,    2
 loop column
 
         pop     ebx
