@@ -3,7 +3,7 @@
     section .bss
         OutBuf  resb    10
         matrix  resw    49
-        sum     resw    1
+        summ     resw    1
         lenres  resd    1
 
     section .text
@@ -18,21 +18,20 @@ cyl1:
         mov     [EBX],  eax
         inc     eax
         add     ebx,    2 ; i++
-        loop    cy1 
+        loop    cyl1 
 
 ; возращаем в ebx, указатель на 1 элемент в матрице.
-lea [ebx],  [matrix]  
+lea ebx,  [matrix]  
 
 mov ecx, 4 ; 4 - string.size()
-mov dx, 0
-mov sum, dx
+add word [summ], 0
 string:
         push    ecx,
         mov     ecx,     6
         push    ebx
 
         mov     ax,     [ebx]
-        push    ax              ; сохраняем значение 
+        push    ax              ; сохраням значение 
         mov     bl,     3
         idiv    bl
         cmp     ah,     0
@@ -42,7 +41,7 @@ string:
 
 sum:
         pop     ax
-        add     word [sum], ax
+        add     word [summ], ax
 
 column:
         mov     ax,     [ebx + 2]
@@ -79,7 +78,7 @@ mat:
         int 80h         ; вызов системной функции
         pop ebx
 
-        add ebx, 2Ы
+        add ebx, 2
         pop ecx
         loop mat
 
