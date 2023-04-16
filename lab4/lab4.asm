@@ -1,4 +1,5 @@
-section .data
+ section .data
+        three   dw      3
 
 section .bss
         OutBuf  resb    10
@@ -32,13 +33,12 @@ string:
         push    ebx
         jmp column 
 
-
 column:
         mov     ax,   [ebx]
         push    ax
-        mov     bl,     3
-        idiv    bl
-        cmp     ah,     0
+        cwd             ;dx:ax
+        idiv    word [three] 
+        cmp     dx,     0
         je sum
         pop     ax
         jmp next
